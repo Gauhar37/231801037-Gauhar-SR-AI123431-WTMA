@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Signup</title>
+    <style>
+        body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column; }
+        form { width: 350px; padding: 20px; border: 1px solid #ccc; border-radius: 5px; background: #f9f9f9; text-align: center; }
+        input, textarea, button { width: 100%; margin: 10px 0; padding: 8px; }
+        .gender-container { display: flex; justify-content: center; gap: 10px; margin-top: 10px; }
+        #successMessage { display: none; margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        table, th, td { border: 1px solid black; padding: 10px; text-align: left; }
+    </style>
+    <script>
+        function validate(event) {
+            event.preventDefault();
+            let firstName = document.getElementById("firstName").value;
+            let lastName = document.getElementById("lastName").value;
+            let email = document.getElementById("email").value;
+            let age = document.getElementById("age").value;
+            let gender = document.querySelector('input[name="gender"]:checked');
+            let phone = document.getElementById("phone").value;
+            let address = document.getElementById("address").value;
+
+            if (firstName.length < 4 || lastName.length < 1 || !email.includes("@") ||
+                age.length !== 2 || !gender || phone.length !== 10 || address.trim() === "") {
+                alert("Please fill all fields correctly.");
+                return false;
+            }
+            
+            document.getElementById("signupForm").style.display = "none";
+            document.getElementById("successMessage").style.display = "block";
+            document.getElementById("outputFirstName").innerText = firstName;
+            document.getElementById("outputLastName").innerText = lastName;
+            document.getElementById("outputEmail").innerText = email;
+            document.getElementById("outputAge").innerText = age;
+            document.getElementById("outputGender").innerText = gender.value;
+            document.getElementById("outputPhone").innerText = phone;
+            document.getElementById("outputAddress").innerText = address;
+        }
+    </script>
+</head>
+<body>
+    <form id="signupForm" onsubmit="validate(event)">
+        <h2>Signup Form</h2>
+        <input type="text" id="firstName" placeholder="First Name" required>
+        <input type="text" id="lastName" placeholder="Last Name" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="text" id="age" placeholder="Age" required>
+        <label>Gender:</label>
+        <div class="gender-container">
+            <label><input type="radio" name="gender" value="Male"> Male</label>
+            <label><input type="radio" name="gender" value="Female"> Female</label>
+        </div>
+        <input type="text" id="phone" placeholder="Phone" required>
+        <textarea id="address" placeholder="Address" required></textarea>
+        <button type="submit">Signup</button>
+    </form>
+    
+    <div id="successMessage">
+        <h2>Signup Successful!</h2>
+        <table>
+            <tr><th>Field</th><th>Value</th></tr>
+            <tr><td>First Name</td><td id="outputFirstName"></td></tr>
+            <tr><td>Last Name</td><td id="outputLastName"></td></tr>
+            <tr><td>Email</td><td id="outputEmail"></td></tr>
+            <tr><td>Age</td><td id="outputAge"></td></tr>
+            <tr><td>Gender</td><td id="outputGender"></td></tr>
+            <tr><td>Phone</td><td id="outputPhone"></td></tr>
+            <tr><td>Address</td><td id="outputAddress"></td></tr>
+        </table>
+    </div>
+</body>
+</html>
